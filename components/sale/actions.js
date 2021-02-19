@@ -25,14 +25,16 @@ const deleteSale = (req, res) => {
 
 const getSale = (req, res) => {
   Sale.findOne({ _id: req.params.id, clientId: currentClient(req.headers.authorization).id }, (error, sale) => {
-    if (error) {
-      res.status(500).send(error)
-    } else if (sale) {
-      res.send(sale)
-    } else {
-      res.status(404).send({})
-    }
-  }).populate('clients')
+    sale.populate('clientId').populate('details.bookId').execPopulate((error, saleWithAllInfo) => {
+      if (error) {
+        res.status(500).send(error)
+      } else if (saleWithAllInfo) {
+        res.send(saleWithAllInfo)
+      } else {
+        res.status(404).send({})
+      }
+    })
+  })
 }
 
 const getSales = (req, res) => {
