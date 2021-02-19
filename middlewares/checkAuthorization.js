@@ -1,7 +1,7 @@
 const { currentClient } = require('../utils/jwt')
 
 module.exports = (req, res, next) => {
-  const clientId = req.params.id || req.params.client_id
+  const clientId = req.params.client_id || req.params.id
   if (clientId && clientId === currentClient(req.headers.authorization).id) {
     next()
   } else {
