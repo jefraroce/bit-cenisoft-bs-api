@@ -1,3 +1,7 @@
+/**
+ * Para poder utilizar este middleware deben crear una APP en Dropbox y conseguir un token de autenticación
+ * Enlace: https://www.dropbox.com/developers/apps/create
+ */
 const dropbox = require('../utils/dropbox')
 const fs = require('fs').promises
 
